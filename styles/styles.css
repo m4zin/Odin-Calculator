@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #222021;
+}
+
+.text-and-calculator {
+    margin: 2.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.text-and-calculator .text p {
+    font-family: 'Roboto Slab', serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 700;
+    color: #FE828C;
+}
+
+.text-and-calculator .calculator .calculator-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 9px;
+    border: 5px solid black;
+    background-color: #353839;
+    border-radius: 10px;
+    height: 550px;
+    width: 453px;
+}
+
+.text-and-calculator .calculator .calculator-body .screen {
+    border: 2.5px solid black;
+    background-color: black;
+    border-radius: 10px;
+    height: 110px;
+    width: 425px;
+}
+
+.text-and-calculator .calculator .calculator-body .buttons {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 425px;
+}
+
+.text-and-calculator .calculator .calculator-body .buttons .first-row .del-and-cl {
+    width: 155.75px;
+    height: 75px;
+}
+
+.text-and-calculator .calculator .calculator-body .buttons .first-row button {
+    width: 102.5px;
+    height: 75px;
+}
+
+.text-and-calculator .calculator .calculator-body .buttons .second-row button,
+.text-and-calculator .calculator .calculator-body .buttons .third-row button,
+.text-and-calculator .calculator .calculator-body .buttons .fourth-row button,
+.text-and-calculator .calculator .calculator-body .buttons .fifth-row button {
+    width: 102.5px;
+    height: 75px;
+}
+
+.del-and-cl {
+    background-color: orange;
+}
+
+.del-and-cl,
+.first-row button,
+.second-row button,
+.third-row button,
+.fourth-row button,
+.fifth-row button {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.num {
+    background-color: #C5C6D0;
+    color: black;
+}
+
+.operator {
+    background-color: #655967;
+}
+
+.equal {
+    background-color: #E3242B;
+}
+
+.num, 
+.operator,
+.equal,
+.del-and-cl {
+    font-family: 'Courier New', Courier, monospace;
+    font-style: italic;
+    font-size: 24px;
+}
