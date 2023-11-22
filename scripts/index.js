@@ -84,9 +84,6 @@ buttons.forEach((button) => {
             screen.textContent = mathExpressionArr[0]
             firstOperand = screen.textContent
         
-            // DEBUG
-            console.log(mathExpressionArr)
-        
             screen.textContent = ''
         
             if(mathExpressionArr.length == 1) {
@@ -113,7 +110,6 @@ buttons.forEach((button) => {
             }
             else
             {
-
                 // if second operand is empty, then return on clicking operator.
                 if(!secondOperand) {
                     return
@@ -129,8 +125,6 @@ buttons.forEach((button) => {
                     mathExpressionArr.push(secondOperand)
                 }
             }
-
-            console.log(mathExpressionArr)
 
             // Carrying out the calculation of the expression if array contains
             // exactly three elements (operator, operand, operator)
@@ -166,9 +160,6 @@ buttons.forEach((button) => {
                 // outputing final value on screen to output value.
                 screen.textContent = mathExpressionArr[0]
                 firstOperand = screen.textContent
-
-                // DEBUG
-                console.log(mathExpressionArr)
 
                 screen.textContent = ''
 
