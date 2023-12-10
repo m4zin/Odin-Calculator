@@ -1,212 +1,187 @@
-// retrieveing all the buttons from the document.
-const buttons = document.querySelectorAll('button')
-const screen = document.querySelector('.screen-text')
-const smallScreen = document.querySelector('.screen-text-output')
-const errorMsg = document.querySelector('.error-output')
+//Getting buttons and screens.
+const buttons = document.querySelectorAll("button");
+const mainScreen = document.querySelector(".screen-text");
+const outputScreen = document.querySelector(".screen-text-output");
+const errorOutput = document.querySelector(".error-output");
 
-// Array storing the mathematical expression (operand, operator, operand.)
-let mathExpressionArr = []
-
-// Operands and operator.
 let firstOperand = ''
 let operator = ''
 let secondOperand = ''
 
-// output of expression
-let outputValue = ''
+let outputValue = 0
 
-buttons.forEach((button) => {
-    button.addEventListener('click', () => {
+let mathArr = []
 
-        if(screen.textContent.length == 20) {
-            errorMsg.textContent = 'number view limit reached.'
-        } else {
-            errorMsg.textContent = ''
+let screenLimit = false
+
+// Looping through all the buttons since querySelectorAll being used.
+for (let i = 0; i < buttons.length; i++) {
+  // Adding an event listener for each button on click.
+  buttons[i].addEventListener("click", () => {
+
+    // Checking if screen view limit has been reached.
+    if(mainScreen.textContent.length == 20)
+    {
+        screenLimit = true
+        errorOutput.textContent = 'Screen view limit reached!'
+    }
+    else
+    {
+        errorOutput.textContent = ''
+    }
+
+    if(!screenLimit)
+    {
+        if(buttons[i].className == 'num')
+        {
+            // displaying numbers on screen
+            mainScreen.textContent += buttons[i].innerHTML
         }
-            
-        // Getting values for the operands.
-        if(button.className == 'num' && screen.textContent.length < 20)
+
+        if(buttons[i].className == 'operator')
         {
 
-            errorMsg.textContent = ''
-
-            screen.textContent += button.innerHTML
-
-            // if first operand is empty then store in first operand, else in second operand.
-            if(mathExpressionArr.length === 0)
-            {
-                firstOperand = screen.textContent
-            } 
-            else {
-                secondOperand = screen.textContent
-            }
-        }
-
-        if(button.className == 'equal')
-        {
-            if(mathExpressionArr.length === 2)
-            {
-                mathExpressionArr.push(secondOperand)
-            }
-            else 
+            // if there is no first operand, dont do anything.
+            if(!mainScreen.textContent)
             {
                 return
             }
 
-            if(mathExpressionArr[1] == '+')
+            if(mathArr.length == 0)
             {
-                outputValue = parseFloat(mathExpressionArr[0]) + parseFloat(mathExpressionArr[2])
-            }
-            else if(mathExpressionArr[1] == '-')
-            {
-                outputValue = parseFloat(mathExpressionArr[0]) - parseFloat(mathExpressionArr[2])
-            }
-            else if(mathExpressionArr[1] == '×')
-            {
-                outputValue = parseFloat(mathExpressionArr[0]) * parseFloat(mathExpressionArr[2])
-            }
-            else if(mathExpressionArr[1] == '/')
-            {
-                outputValue = parseFloat(mathExpressionArr[0]) / parseFloat(mathExpressionArr[2])
-            }
-        
-            // Converting to string to store in array
-            outputValue = outputValue.toString()
-        
-            // Emptying array.
-            mathExpressionArr = []
-            secondOperand = ''
-        
-            // now ONLY output value is present in array.
-            mathExpressionArr.push(outputValue)
-        
-            // outputing final value on screen to output value.
-            screen.textContent = mathExpressionArr[0]
-            firstOperand = screen.textContent
-        
-            screen.textContent = ''
-        
-            if(mathExpressionArr.length == 1) {
-                smallScreen.textContent = mathExpressionArr[0]
-            }
-        }
+                // Getting values for first operand and operator
+                firstOperand = mainScreen.textContent
+                operator = buttons[i].innerHTML
 
-        if(button.className == 'operator') 
-        {
+                // Pusing first operand and operator
+                mathArr.push(firstOperand)
+                mathArr.push(operator)
 
-            // if first operand is empty then do nothing.
-            if(firstOperand == '') {
+                // Clearing main screen.
+                mainScreen.textContent = ''
+
+                outputScreen.textContent = mathArr[0]
+
+                // First Debug
+                console.log(mathArr, 'Arr now has two elements.')
+
                 return
             }
 
-            // if array is empty, then store first operand along with operator else push
-            // second operand.
-            if(mathExpressionArr.length === 0)
+            if(mathArr.length == 1)
             {
-                mathExpressionArr.push(firstOperand)
-                mathExpressionArr.push(button.innerHTML)
-
-                screen.textContent = ''
-            }
-            else
-            {
-                // if second operand is empty, then return on clicking operator.
-                if(!secondOperand) {
-                    return
-                }
-
-                // calculating with previous output in case new operand pressed 
-                // instead of equal sign.
-                if(mathExpressionArr.length === 1) {
-                    mathExpressionArr.push(button.innerHTML)
-                    mathExpressionArr.push(secondOperand)
-                }
-                else {
-                    mathExpressionArr.push(secondOperand)
-                }
+                mathArr.push(buttons[i].innerHTML)
             }
 
-            // Carrying out the calculation of the expression if array contains
-            // exactly three elements (operator, operand, operator)
-            if(mathExpressionArr.length == 3)
+            if(mathArr.length == 2)
             {
-                if(mathExpressionArr[1] == '+')
+                // Getting value for second operand.
+                secondOperand = mainScreen.textContent
+
+                // Pushing secondOperand and new operator value if pressed.
+                mathArr.push(secondOperand)
+
+                console.log(mathArr, 'Arr should now have 4 elements.')
+
+                for(let i = 0; i < mathArr.length; i++)
                 {
-                    outputValue = parseFloat(mathExpressionArr[0]) + parseFloat(mathExpressionArr[2])
-                }
-                else if(mathExpressionArr[1] == '-')
-                {
-                    outputValue = parseFloat(mathExpressionArr[0]) - parseFloat(mathExpressionArr[2])
-                }
-                else if(mathExpressionArr[1] == '×')
-                {
-                    outputValue = parseFloat(mathExpressionArr[0]) * parseFloat(mathExpressionArr[2])
-                }
-                else if(mathExpressionArr[1] == '/')
-                {
-                    outputValue = parseFloat(mathExpressionArr[0]) / parseFloat(mathExpressionArr[2])
+                    if(mathArr[1] == '+')
+                    {
+                        outputValue = parseFloat(mathArr[0]) + parseFloat(mathArr[2])
+                    }
+                    else if(mathArr[1] == '-')
+                    {
+                        outputValue = parseFloat(mathArr[0]) - parseFloat(mathArr[2])
+                    }
+                    else if(mathArr[1] == '/')
+                    {
+                        outputValue = parseFloat(mathArr[0]) / parseFloat(mathArr[2])
+                    }
+                    else if(mathArr[1] == '×')
+                    {
+                        outputValue = parseFloat(mathArr[0]) * parseFloat(mathArr[2])
+                    }
                 }
 
-                // Converting to string to store in array
+                // Converting output value to string.
                 outputValue = outputValue.toString()
 
-                // Emptying array.
-                mathExpressionArr = []
-                secondOperand = ''
-
-                // now ONLY output value is present in array.
-                mathExpressionArr.push(outputValue)
+                // Emptying array
+                mathArr = []
                 
-                // outputing final value on screen to output value.
-                screen.textContent = mathExpressionArr[0]
-                firstOperand = screen.textContent
+                mathArr.push(outputValue)
 
-                screen.textContent = ''
+                outputScreen.textContent = mathArr[0]
+                mainScreen.textContent = ''
 
-                if(mathExpressionArr.length == 1) {
-                    smallScreen.textContent = mathExpressionArr[0]
+                console.log(mathArr, 'arr should contain 2 elements only now.')
+
+            }
+
+        }
+    }
+
+    if(buttons[i].className == 'equal')
+    {
+        if(mathArr.length == 2)
+        {
+            // Getting value for second operand.
+            secondOperand = mainScreen.textContent
+
+            // Pushing secondOperand and new operator value if pressed.
+            mathArr.push(secondOperand)
+
+            console.log(mathArr, 'Arr should now have 4 elements.')
+
+            for(let i = 0; i < mathArr.length; i++)
+            {
+                if(mathArr[1] == '+')
+                {
+                    outputValue = parseFloat(mathArr[0]) + parseFloat(mathArr[2])
+                }
+                else if(mathArr[1] == '-')
+                {
+                    outputValue = parseFloat(mathArr[0]) - parseFloat(mathArr[2])
                 }
             }
+
+            // Converting output value to string.
+            outputValue = outputValue.toString()
+
+            // Emptying array
+            mathArr = []
+            
+            mathArr.push(outputValue)
+
+            outputScreen.textContent = mathArr[0]
+            mainScreen.textContent = ''
+
+            console.log(mathArr, 'arr should contain 2 elements only now.')
         }
 
-        // Clearing screen (emtpying array and text content of screen)
-        if(button.className == 'cl')
+        if(mathArr.length == 1)
         {
-            mathExpressionArr = []
             screen.textContent = ''
-            smallScreen.textContent = ''
-
-            if(screen.textContent.length < 18) {
-                errorMsg.textContent = ''
-            }
-
+            outputScreen.textContent = mathArr[0]
         }
+    }
 
-        // Deleting number one by one
-        if(button.className == 'del')
-        {
-            screen.textContent = screen.textContent.slice(0, -1);
+    if(buttons[i].className == 'del')
+    {
+        // Deleting char by char.
+        mainScreen.textContent = mainScreen.textContent.slice(0, -1)
+    }
 
-            // if first operand is empty then store in first operand, else in second operand.
-            if(mathExpressionArr.length === 0)
-            {
-                firstOperand = screen.textContent
-            } 
-            else {
-                secondOperand = screen.textContent
-            }
-        }
+    if(buttons[i].className == 'cl')
+    {
+        // Empting everything.
+        mainScreen.textContent = ''
+        outputScreen.textContent = ''
+        mathArr = []
+        firstOperand = ''
+        secondOperand = ''
+        operator = ''
+    }
 
-        // Adding decimal point to number.
-        if(button.className == 'dot')
-        {
-            // Add decimal point only if screen contains number and no prior decimal points.
-            if(/[0-9]/.test(screen.textContent) && !(screen.textContent.includes('.')))
-            {
-                screen.textContent += '.'
-            } else {
-                return
-            }
-        }
-    })
-})
+  });
+}
