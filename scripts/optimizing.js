@@ -3,7 +3,6 @@ const buttons = document.querySelectorAll("button");
 const mainScreen = document.querySelector(".screen-text");
 const outputScreen = document.querySelector(".screen-text-output");
 const errorOutput = document.querySelector(".error-output");
-const decimalPoint = document.querySelector(".dot");
 
 let firstOperand = ''
 let operator = ''
@@ -28,7 +27,6 @@ for (let i = 0; i < buttons.length; i++) {
     }
     else
     {
-        screenLimit = false
         errorOutput.textContent = ''
     }
 
@@ -39,90 +37,88 @@ for (let i = 0; i < buttons.length; i++) {
             // displaying numbers on screen
             mainScreen.textContent += buttons[i].innerHTML
         }
-    }
 
-    if(buttons[i].className == 'operator')
-    {
-
-        errorOutput.textContent = ''
-
-        // if there is no first operand, dont do anything.
-        if(!mainScreen.textContent)
+        if(buttons[i].className == 'operator')
         {
-            return
-        }
 
-        if(mathArr.length == 0)
-        {
-            // Getting values for first operand and operator
-            firstOperand = mainScreen.textContent
-            operator = buttons[i].innerHTML
-
-            // Pusing first operand and operator
-            mathArr.push(firstOperand)
-            mathArr.push(operator)
-
-            // Clearing main screen.
-            mainScreen.textContent = ''
-
-            outputScreen.textContent = mathArr[0]
-
-            // First Debug
-            console.log(mathArr, 'Arr now has two elements.')
-
-            return
-        }
-
-        if(mathArr.length == 1)
-        {
-            mathArr.push(buttons[i].innerHTML)
-        }
-
-        if(mathArr.length == 2)
-        {
-            // Getting value for second operand.
-            secondOperand = mainScreen.textContent
-
-            // Pushing secondOperand and new operator value if pressed.
-            mathArr.push(secondOperand)
-
-            console.log(mathArr, 'Arr should now have 4 elements.')
-
-            for(let i = 0; i < mathArr.length; i++)
+            // if there is no first operand, dont do anything.
+            if(!mainScreen.textContent)
             {
-                if(mathArr[1] == '+')
-                {
-                    outputValue = parseFloat(mathArr[0]) + parseFloat(mathArr[2])
-                }
-                else if(mathArr[1] == '-')
-                {
-                    outputValue = parseFloat(mathArr[0]) - parseFloat(mathArr[2])
-                }
-                else if(mathArr[1] == '/')
-                {
-                    outputValue = parseFloat(mathArr[0]) / parseFloat(mathArr[2])
-                }
-                else if(mathArr[1] == '×')
-                {
-                    outputValue = parseFloat(mathArr[0]) * parseFloat(mathArr[2])
-                }
+                return
             }
 
-            // Converting output value to string.
-            outputValue = outputValue.toString()
+            if(mathArr.length == 0)
+            {
+                // Getting values for first operand and operator
+                firstOperand = mainScreen.textContent
+                operator = buttons[i].innerHTML
 
-            // Emptying array
-            mathArr = []
-            
-            mathArr.push(outputValue)
+                // Pusing first operand and operator
+                mathArr.push(firstOperand)
+                mathArr.push(operator)
 
-            outputScreen.textContent = mathArr[0]
-            mainScreen.textContent = ''
+                // Clearing main screen.
+                mainScreen.textContent = ''
 
-            console.log(mathArr, 'arr should contain 2 elements only now.')
+                outputScreen.textContent = mathArr[0]
+
+                // First Debug
+                console.log(mathArr, 'Arr now has two elements.')
+
+                return
+            }
+
+            if(mathArr.length == 1)
+            {
+                mathArr.push(buttons[i].innerHTML)
+            }
+
+            if(mathArr.length == 2)
+            {
+                // Getting value for second operand.
+                secondOperand = mainScreen.textContent
+
+                // Pushing secondOperand and new operator value if pressed.
+                mathArr.push(secondOperand)
+
+                console.log(mathArr, 'Arr should now have 4 elements.')
+
+                for(let i = 0; i < mathArr.length; i++)
+                {
+                    if(mathArr[1] == '+')
+                    {
+                        outputValue = parseFloat(mathArr[0]) + parseFloat(mathArr[2])
+                    }
+                    else if(mathArr[1] == '-')
+                    {
+                        outputValue = parseFloat(mathArr[0]) - parseFloat(mathArr[2])
+                    }
+                    else if(mathArr[1] == '/')
+                    {
+                        outputValue = parseFloat(mathArr[0]) / parseFloat(mathArr[2])
+                    }
+                    else if(mathArr[1] == '×')
+                    {
+                        outputValue = parseFloat(mathArr[0]) * parseFloat(mathArr[2])
+                    }
+                }
+
+                // Converting output value to string.
+                outputValue = outputValue.toString()
+
+                // Emptying array
+                mathArr = []
+                
+                mathArr.push(outputValue)
+
+                outputScreen.textContent = mathArr[0]
+                mainScreen.textContent = ''
+
+                console.log(mathArr, 'arr should contain 2 elements only now.')
+
+            }
 
         }
-
     }
 
     if(buttons[i].className == 'equal')
@@ -191,22 +187,6 @@ for (let i = 0; i < buttons.length; i++) {
         firstOperand = ''
         secondOperand = ''
         operator = ''
-    }
-
-    if(buttons[i].className == 'dot')
-    {
-        // if screen text is empty.
-        if(!mainScreen.textContent)
-        {
-            return
-        }
-        else if(mainScreen.textContent.includes('.'))
-        {
-            return
-        }
-        else {
-            mainScreen.textContent += '.'
-        }
     }
 
   });

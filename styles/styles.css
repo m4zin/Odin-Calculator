@@ -66,13 +66,13 @@ body {
 
 .text-and-calculator .calculator .calculator-body .buttons .first-row .del,
 .text-and-calculator .calculator .calculator-body .buttons .first-row .cl {
-    width: 155px;
-    height: 75px;
+    min-width: 155px;
+    min-height: 75px;
 }
 
 .text-and-calculator .calculator .calculator-body .buttons .first-row button {
-    width: 102.5px;
-    height: 75px;
+    min-width: 102.5px;
+    min-height: 75px;
 }
 
 .text-and-calculator .calculator .calculator-body .buttons .second-row button,
@@ -81,6 +81,11 @@ body {
 .text-and-calculator .calculator .calculator-body .buttons .fifth-row button {
     width: 102.5px;
     height: 75px;
+}
+
+.operator:focus {
+    transform: scale(0.9);
+    
 }
 
 .del,
